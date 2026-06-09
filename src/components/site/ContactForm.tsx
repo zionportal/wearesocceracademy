@@ -2,10 +2,13 @@ import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 
 const programs = [
-  "Foundation Training",
-  "Competitive Player Development",
-  "Elite Academy Pathway",
+  "Toddlers / First Touch",
+  "U6 Fundamentals",
+  "U9 Skill Builder",
+  "U13 Player Development",
+  "U15 Academy Prep",
   "Private & Small Group Training",
+  "Seasonal Camps & Clinics",
   "Not Sure Yet",
 ];
 
@@ -28,18 +31,18 @@ export function ContactForm() {
         </h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thank you. A member of the We Are Soccer team will reach out within one business day to
-          confirm your trial session and answer any questions.
+          confirm your session and answer any questions.
         </p>
       </div>
     );
   }
 
   const field =
-    "w-full rounded-md border border-border bg-white px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-green focus:ring-2 focus:ring-green/20 transition";
+    "w-full rounded-md border border-border bg-white px-3 py-2 text-sm text-charcoal focus:outline-none focus:border-green focus:ring-2 focus:ring-green/20 transition";
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-white p-6 sm:p-8 shadow-xl">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-white p-5 sm:p-6 shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Field label="Parent Name"><input required className={field} placeholder="Jane Smith" /></Field>
         <Field label="Player Name"><input required className={field} placeholder="Alex Smith" /></Field>
         <Field label="Player Age"><input required type="number" min={4} max={20} className={field} placeholder="12" /></Field>
@@ -53,19 +56,19 @@ export function ContactForm() {
         </Field>
         <div className="sm:col-span-2">
           <Field label="Message">
-            <textarea rows={4} className={field} placeholder="Tell us a bit about your player and goals." />
+            <textarea rows={3} className={field} placeholder="Tell us a bit about your player and goals." />
           </Field>
         </div>
       </div>
 
       <button
         type="submit"
-        className="btn-green w-full mt-6 font-display uppercase tracking-wider text-base px-6 py-4 rounded-md"
+        className="btn-green w-full mt-5 font-display uppercase tracking-wider text-base px-6 py-3 rounded-md"
       >
-        Book a Trial Session
+        Book a Session
       </button>
       <p className="mt-3 text-xs text-muted-foreground text-center">
-        We respect your privacy. Your information is only used to coordinate your trial.
+        We respect your privacy. Your information is only used to coordinate your session.
       </p>
     </form>
   );

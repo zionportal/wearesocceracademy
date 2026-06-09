@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import {
   ArrowRight,
   Award,
@@ -11,7 +12,6 @@ import {
   Mail,
   MapPin,
   Phone,
-  Quote,
   Shield,
   Sparkles,
   Star,
@@ -26,9 +26,6 @@ import { Faq } from "@/components/site/Faq";
 import { ContactForm } from "@/components/site/ContactForm";
 
 import heroImg from "@/assets/hero-training.jpg";
-import coach1 from "@/assets/coach-1.jpg";
-import coach2 from "@/assets/coach-2.jpg";
-import coach3 from "@/assets/coach-3.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,13 +34,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "We Are Soccer develops young players through elite training, strong character, and purpose-driven soccer development.",
+          "We Are Soccer helps young players build skill, fitness, confidence, discipline, and love for the game through age-based soccer training.",
       },
       { property: "og:title", content: "We Are Soccer | Youth Soccer Training & Player Development" },
       {
         property: "og:description",
         content:
-          "We Are Soccer develops young players through elite training, strong character, and purpose-driven soccer development.",
+          "Age-based youth soccer training focused on skill, confidence, discipline, fitness, and game understanding.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -57,7 +54,7 @@ export const Route = createFileRoute("/")({
           "@type": "SportsActivityLocation",
           name: "We Are Soccer Academy",
           description:
-            "Youth soccer academy developing complete players through elite training, character, and a clear pathway.",
+            "Youth soccer academy developing players through age-based training, technical skill, fitness, discipline, and game confidence.",
           sport: "Soccer",
           url: "/",
         }),
@@ -68,17 +65,18 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useSectionSnap();
+
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
       <Header />
       <Hero />
-      <TrustBar />
       <About />
       <Programs />
       <Pathway />
       <Philosophy />
-      <Coaches />
-      <Testimonials />
+      <SessionFlow />
+      <Parents />
       <Values />
       <FaqSection />
       <FinalCta />
@@ -88,10 +86,52 @@ function Index() {
   );
 }
 
+function useSectionSnap() {
+  useEffect(() => {
+    let timer: number | undefined;
+    let snapping = false;
+
+    const snapToNearestSection = () => {
+      if (snapping) return;
+
+      const sections = Array.from(document.querySelectorAll<HTMLElement>(".snap-section"));
+      if (!sections.length) return;
+
+      const currentY = window.scrollY;
+      const nearest = sections.reduce((closest, section) => {
+        const sectionTop = section.offsetTop;
+        const closestTop = closest.offsetTop;
+        return Math.abs(sectionTop - currentY) < Math.abs(closestTop - currentY) ? section : closest;
+      }, sections[0]);
+
+      const targetTop = nearest.offsetTop;
+      if (Math.abs(targetTop - currentY) < 8) return;
+
+      snapping = true;
+      window.scrollTo({ top: targetTop, behavior: "smooth" });
+      window.setTimeout(() => {
+        snapping = false;
+      }, 260);
+    };
+
+    const onScroll = () => {
+      if (timer) window.clearTimeout(timer);
+      timer = window.setTimeout(snapToNearestSection, 140);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      if (timer) window.clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+}
+
 /* ------------------------------- HERO -------------------------------- */
 function Hero() {
   return (
-    <section className="relative bg-pitch pt-28 sm:pt-36 pb-20 sm:pb-28 overflow-hidden">
+    <section className="snap-section relative bg-pitch pt-16 sm:pt-20 pb-8 overflow-hidden">
       <div className="absolute inset-0 field-lines opacity-40" />
       <img
         src={heroImg}
@@ -103,10 +143,10 @@ function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 text-white">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 mb-4">
             <Sparkles className="h-3.5 w-3.5 text-gold" />
             <span className="text-xs uppercase tracking-[0.2em] text-silver">
-              Elite Youth Player Development
+              Year-Round Youth Soccer Development
             </span>
           </div>
 
@@ -116,13 +156,13 @@ function Hero() {
             <span className="text-green">Play With Purpose.</span>
           </h1>
 
-          <p className="mt-6 text-lg sm:text-xl text-silver font-medium">
-            Elite training. Strong character. Bright futures.
+          <p className="mt-5 text-lg sm:text-xl text-silver font-medium">
+            Age-based training. Real confidence. Better habits with the ball.
           </p>
 
           <p className="mt-5 max-w-xl text-base sm:text-lg text-white/75 leading-relaxed">
-            We Are Soccer develops complete players on and off the field through structured training,
-            high standards, and a clear pathway toward the next level.
+            We help young players build soccer skill, fitness, discipline, and joy for the game
+            through structured sessions designed for each stage of development.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -130,21 +170,15 @@ function Hero() {
               href="#contact"
               className="btn-green inline-flex items-center justify-center gap-2 font-display uppercase tracking-wider text-base px-7 py-4 rounded-md"
             >
-              Book a Trial Session <ArrowRight className="h-5 w-5" />
-            </a>
-            <a
-              href="#programs"
-              className="btn-outline-light inline-flex items-center justify-center font-display uppercase tracking-wider text-base px-7 py-4 rounded-md"
-            >
-              Join Academy
+              Join Academy <ArrowRight className="h-5 w-5" />
             </a>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl">
             {[
-              { icon: Trophy, label: "Elite Coaching" },
-              { icon: Shield, label: "Character Development" },
-              { icon: Compass, label: "Clear Player Pathway" },
+              { icon: Trophy, label: "Age-Based Classes" },
+              { icon: Shield, label: "Fitness & Discipline" },
+              { icon: Compass, label: "Skill Progression" },
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
@@ -158,10 +192,24 @@ function Hero() {
             ))}
           </div>
 
-          <p className="mt-6 text-sm text-gold/90 flex items-center gap-2">
+          <p className="mt-5 text-sm text-gold/90 flex items-center gap-2">
             <Star className="h-4 w-4 fill-gold text-gold" />
             Limited training spots available for committed players and families.
           </p>
+
+          <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2 max-w-2xl">
+            {[
+              "Player-first training",
+              "Parent-trusted development",
+              "Year-round development",
+              "Camps, clinics, private training",
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-2 text-white/80">
+                <CheckCircle2 className="h-4 w-4 text-green flex-shrink-0" />
+                <span className="font-display uppercase tracking-wider text-xs">{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Hero crest panel */}
@@ -182,71 +230,47 @@ function Hero() {
   );
 }
 
-/* ------------------------------ TRUST BAR ----------------------------- */
-function TrustBar() {
-  const items = [
-    "Player-first training",
-    "Parent-trusted development",
-    "Structured academy pathway",
-    "Purpose-driven coaching",
-  ];
-  return (
-    <section className="bg-charcoal border-y border-white/5">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3">
-        {items.map((t) => (
-          <div key={t} className="flex items-center gap-2.5 text-white/85">
-            <CheckCircle2 className="h-4 w-4 text-green flex-shrink-0" />
-            <span className="font-display uppercase tracking-wider text-xs sm:text-sm">
-              {t}
-            </span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------- ABOUT -------------------------------- */
 function About() {
   const cards = [
     {
       icon: Target,
-      title: "Technical Training",
-      body: "Master the fundamentals — first touch, passing, finishing, and 1v1 play — through disciplined, repetition-based sessions.",
+      title: "Skill First",
+      body: "Players build touch, passing, finishing, control, and confidence through focused repetition and live pressure.",
     },
     {
       icon: Heart,
-      title: "Strong Character",
-      body: "Players learn responsibility, resilience, and respect. Habits built in training carry into school, home, and life.",
+      title: "Active & Confident",
+      body: "Training keeps kids moving while developing coordination, flexibility, focus, and a stronger relationship with the game.",
     },
     {
       icon: Compass,
-      title: "Clear Pathway",
-      body: "Every player follows a structured progression with measurable goals, honest feedback, and a path toward higher levels.",
+      title: "Clear Progression",
+      body: "Each age group has a purpose, so players know what they are learning and families know what comes next.",
     },
   ];
   return (
-    <section id="about" className="py-20 sm:py-28 bg-background">
+    <section id="about" className="snap-section py-8 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="About We Are Soccer"
-          title={<>Built for Development. <span className="text-green">Trained for the Next Level.</span></>}
-          body="We Are Soccer helps young players grow technically, mentally, physically, and personally through structured training, high standards, and purpose-driven coaching."
+          title={<>Built for Young Players. <span className="text-green">Structured for Growth.</span></>}
+          body="We Are Soccer blends ball mastery, movement, confidence, discipline, and game play into a training experience players can enjoy while improving."
         />
-        <div className="mt-14 grid md:grid-cols-3 gap-6">
+        <div className="mt-6 grid md:grid-cols-3 gap-4">
           {cards.map((c) => (
             <div
               key={c.title}
-              className="group relative rounded-2xl border border-border bg-card p-7 hover:border-green/40 transition shadow-sm hover:shadow-lg"
+              className="group relative rounded-2xl border border-border bg-card p-5 hover:border-green/40 transition shadow-sm hover:shadow-lg"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green/10 text-green">
-                <c.icon className="h-6 w-6" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green/10 text-green">
+                <c.icon className="h-5 w-5" />
               </div>
-              <h3 className="mt-5 font-display uppercase tracking-wide text-xl text-navy">
+              <h3 className="mt-4 font-display uppercase tracking-wide text-lg text-navy">
                 {c.title}
               </h3>
-              <p className="mt-3 text-muted-foreground leading-relaxed">{c.body}</p>
-              <div className="mt-5 h-1 w-10 bg-green rounded-full group-hover:w-16 transition-all" />
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.body}</p>
+              <div className="mt-4 h-1 w-10 bg-green rounded-full group-hover:w-16 transition-all" />
             </div>
           ))}
         </div>
@@ -254,70 +278,75 @@ function About() {
     </section>
   );
 }
-
 /* ------------------------------ PROGRAMS ------------------------------ */
 function Programs() {
   const programs = [
     {
-      tag: "Ages 5–9",
-      title: "Foundation Training",
-      who: "New and early-stage players building a love for the game.",
-      benefit: "Develops first touch, coordination, confidence, and core fundamentals.",
+      tag: "Ages 2-4",
+      title: "Toddlers / First Touch",
+      who: "Early learners discovering movement, balance, and the ball.",
+      benefit: "Builds comfort, coordination, listening habits, and soccer curiosity.",
     },
     {
-      tag: "Ages 10–14",
-      title: "Competitive Player Development",
-      who: "Players ready to compete and refine technical-tactical ability.",
-      benefit: "Sharpens decision-making, positional awareness, and game speed.",
+      tag: "Ages 4-6",
+      title: "U6 Fundamentals",
+      who: "Young players ready for simple skills and fun game play.",
+      benefit: "Develops dribbling, passing basics, confidence, and group participation.",
     },
     {
-      tag: "Ages 13–18",
-      title: "Elite Academy Pathway",
-      who: "Committed players targeting club, college, and high-level opportunities.",
-      benefit: "High-intensity training, performance tracking, and pathway guidance.",
+      tag: "Ages 7-9",
+      title: "U9 Skill Builder",
+      who: "Players building stronger technique and faster decisions.",
+      benefit: "Improves first touch, 1v1 play, ball control, and small-sided awareness.",
+    },
+    {
+      tag: "Ages 10-13",
+      title: "U13 Development",
+      who: "Players preparing for a more demanding soccer environment.",
+      benefit: "Adds tactical habits, fitness, discipline, and competitive rhythm.",
+    },
+    {
+      tag: "Ages 14-16",
+      title: "U15 Academy Prep",
+      who: "Older players who want higher standards and sharper execution.",
+      benefit: "Builds speed of play, leadership, conditioning, and next-level readiness.",
     },
     {
       tag: "All Ages",
-      title: "Private & Small Group Training",
-      who: "Players seeking individualized attention and accelerated growth.",
-      benefit: "Personalized sessions to fix gaps and unlock the next level.",
+      title: "Private, Camps & Clinics",
+      who: "Players who need focused reps, seasonal activity, or extra development.",
+      benefit: "Targets specific skills through private sessions, camps, and clinics.",
     },
   ];
   return (
-    <section id="programs" className="py-20 sm:py-28 bg-muted/40">
+    <section id="programs" className="snap-section py-8 bg-muted/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Programs"
-          title={<>Choose the <span className="text-green">Right Training Path</span></>}
-          body="Structured programs by age and ability, each engineered to develop the complete player."
+          title={<>Classes for <span className="text-green">Every Stage</span></>}
+          body="From first touches to academy preparation, each group is built around age, ability, and the way young players actually learn."
         />
-        <div className="mt-14 grid md:grid-cols-2 gap-6">
+        <div className="mt-5 grid md:grid-cols-3 gap-4">
           {programs.map((p) => (
             <div
               key={p.title}
-              className="group rounded-2xl bg-card border border-border p-7 sm:p-8 hover:border-green/40 transition shadow-sm hover:shadow-xl flex flex-col"
+              className="group rounded-2xl bg-card border border-border p-4 hover:border-green/40 transition shadow-sm hover:shadow-xl flex flex-col"
             >
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center text-xs uppercase tracking-[0.2em] font-display text-green bg-green/10 px-2.5 py-1 rounded">
+                <span className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] font-display text-green bg-green/10 px-2 py-1 rounded">
                   {p.tag}
                 </span>
-                <Trophy className="h-5 w-5 text-gold" />
+                <Trophy className="h-4 w-4 text-gold" />
               </div>
-              <h3 className="mt-5 font-display uppercase tracking-wide text-2xl text-navy">
+              <h3 className="mt-3 font-display uppercase tracking-wide text-lg text-navy">
                 {p.title}
               </h3>
-              <p className="mt-3 text-sm text-muted-foreground">
-                <span className="font-semibold text-navy">Who it's for: </span>{p.who}
+              <p className="mt-1.5 text-xs text-muted-foreground leading-snug">
+                <span className="font-semibold text-navy">Who: </span>{p.who}
               </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                <span className="font-semibold text-navy">Key benefit: </span>{p.benefit}
+              <p className="mt-1.5 text-xs text-muted-foreground leading-snug">
+                <span className="font-semibold text-navy">Focus: </span>{p.benefit}
               </p>
-              <a
-                href="#contact"
-                className="mt-6 inline-flex items-center gap-2 font-display uppercase tracking-wider text-sm text-green hover:text-navy transition"
-              >
-                Learn More <ArrowRight className="h-4 w-4" />
-              </a>
             </div>
           ))}
         </div>
@@ -325,17 +354,16 @@ function Programs() {
     </section>
   );
 }
-
 /* ------------------------------ PATHWAY ------------------------------- */
 function Pathway() {
   const steps = [
     { n: "01", title: "Learn the Game", body: "Foundations, fundamentals, and a true love for the ball." },
     { n: "02", title: "Build Discipline", body: "Consistency, focus, and habits that define every elite player." },
     { n: "03", title: "Compete With Purpose", body: "Apply technique under pressure. Train to win the right way." },
-    { n: "04", title: "Prepare for Opportunity", body: "Club, college, and the next stage — ready, evaluated, and equipped." },
+    { n: "04", title: "Prepare for Opportunity", body: "Club, school, travel, and the next stage - ready, evaluated, and equipped." },
   ];
   return (
-    <section id="pathway" className="relative py-20 sm:py-28 bg-navy text-white overflow-hidden">
+    <section id="pathway" className="snap-section relative py-8 bg-navy text-white overflow-hidden">
       <div className="absolute inset-0 field-lines opacity-30" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
@@ -345,7 +373,7 @@ function Pathway() {
           body="Every player follows a structured journey. Each stage builds the skill, mindset, and standards required for the next."
         />
 
-        <div className="mt-14 relative">
+        <div className="mt-6 relative">
           <div className="hidden lg:block absolute left-0 right-0 top-10 h-px bg-gradient-to-r from-green/0 via-green to-green/0" />
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {steps.map((s, i) => (
@@ -353,10 +381,10 @@ function Pathway() {
                 <div className="relative z-10 mx-auto lg:mx-0 flex h-20 w-20 items-center justify-center rounded-full bg-navy border-2 border-green">
                   <span className="font-display text-2xl text-green">{s.n}</span>
                 </div>
-                <h3 className="mt-5 font-display uppercase tracking-wide text-xl">
+                <h3 className="mt-4 font-display uppercase tracking-wide text-lg">
                   {s.title}
                 </h3>
-                <p className="mt-2 text-white/70 leading-relaxed">{s.body}</p>
+                <p className="mt-2 text-sm text-white/70 leading-relaxed">{s.body}</p>
                 {i < steps.length - 1 && (
                   <div className="lg:hidden mx-auto my-6 h-10 w-px bg-green/40" />
                 )}
@@ -379,19 +407,19 @@ function Philosophy() {
     { icon: Heart, title: "Character & Leadership", body: "Players who lead themselves and lift others." },
   ];
   return (
-    <section className="py-20 sm:py-28 bg-background">
+    <section className="snap-section py-8 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Training Philosophy"
           title={<>More Than Drills. <span className="text-green">A Complete Player System.</span></>}
           body="Five pillars define every session. Together they develop the player and the person."
         />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {blocks.map((b) => (
-            <div key={b.title} className="rounded-2xl border border-border bg-card p-6 hover:border-green/40 transition">
-              <b.icon className="h-7 w-7 text-green" />
-              <h3 className="mt-4 font-display uppercase tracking-wide text-lg text-navy">{b.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{b.body}</p>
+            <div key={b.title} className="rounded-2xl border border-border bg-card p-5 hover:border-green/40 transition">
+              <b.icon className="h-6 w-6 text-green" />
+              <h3 className="mt-3 font-display uppercase tracking-wide text-base text-navy">{b.title}</h3>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{b.body}</p>
             </div>
           ))}
         </div>
@@ -400,40 +428,33 @@ function Philosophy() {
   );
 }
 
-/* ------------------------------ COACHES ------------------------------- */
-function Coaches() {
-  const coaches = [
-    { img: coach1, name: "Marco Alvarez", role: "Academy Director", bio: "Two decades developing players from grassroots to professional pathways across Europe and the US." },
-    { img: coach2, name: "James Whitfield", role: "Technical Coach", bio: "Specialist in technical mastery and possession-based development for ages 8–14." },
-    { img: coach3, name: "Lena Carter", role: "Player Development Coach", bio: "Performance-focused coach building elite-level players and confident competitors." },
+/* ----------------------------- SESSION FLOW ---------------------------- */
+function SessionFlow() {
+  const steps = [
+    { icon: Dumbbell, title: "Warm Up", body: "Players activate their bodies, get focused, and prepare for the session with movement and ball touches." },
+    { icon: Target, title: "Skill Work", body: "Guided reps build dribbling, passing, shooting, control, and confidence." },
+    { icon: Users, title: "Game Play", body: "Small-sided games turn skills into decisions, teamwork, vision, and competitive habits." },
+    { icon: Brain, title: "Cool Down", body: "Players reset, review what they learned, and leave with a simple focus for the next session." },
   ];
   return (
-    <section id="coaches" className="py-20 sm:py-28 bg-muted/40">
+    <section id="sessions" className="snap-section py-8 bg-muted/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Our Coaches"
-          title={<>Led by Coaches <span className="text-green">Who Build Players</span></>}
-          body="Experienced, licensed coaches who combine elite standards with genuine care for every player."
+          eyebrow="Session Flow"
+          title={<>What Players <span className="text-green">Can Expect</span></>}
+          body="Every class has a rhythm: prepare the body, build the skill, apply it in play, then leave with a clear next step."
         />
-        <div className="mt-14 grid md:grid-cols-3 gap-6">
-          {coaches.map((c) => (
-            <div key={c.name} className="group rounded-2xl overflow-hidden border border-border bg-card shadow-sm hover:shadow-xl transition">
-              <div className="relative aspect-[4/5] overflow-hidden bg-navy">
-                <img
-                  src={c.img}
-                  alt={c.name}
-                  loading="lazy"
-                  className="h-full w-full object-cover group-hover:scale-105 transition duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/85 via-navy-deep/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                  <div className="text-[10px] font-display uppercase tracking-[0.25em] text-green">{c.role}</div>
-                  <div className="mt-1 font-display text-2xl uppercase tracking-wide">{c.name}</div>
+        <div className="mt-6 grid md:grid-cols-4 gap-4">
+          {steps.map((step, index) => (
+            <div key={step.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green/10 text-green">
+                  <step.icon className="h-5 w-5" />
                 </div>
+                <span className="font-display text-2xl text-gold">0{index + 1}</span>
               </div>
-              <div className="p-6">
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.bio}</p>
-              </div>
+              <h3 className="mt-4 font-display uppercase tracking-wide text-lg text-navy">{step.title}</h3>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{step.body}</p>
             </div>
           ))}
         </div>
@@ -441,60 +462,46 @@ function Coaches() {
     </section>
   );
 }
-
-/* ---------------------------- TESTIMONIALS ---------------------------- */
-function Testimonials() {
+/* ------------------------------ PARENTS ------------------------------- */
+function Parents() {
   const items = [
     {
-      quote:
-        "Our son's confidence and technical ability have completely transformed. The coaches treat him like a real player and push him with care.",
-      name: "Sarah M.",
-      role: "Parent of U12 Player",
+      icon: CheckCircle2,
+      title: "Clear Expectations",
+      body: "Families know what each session is for, what players are practicing, and how the next step is chosen.",
     },
     {
-      quote:
-        "The structure and discipline at We Are Soccer carry into school and home. He shows up early, listens, and works. That's the real win.",
-      name: "David R.",
-      role: "Parent of U14 Player",
+      icon: Heart,
+      title: "Positive Standards",
+      body: "Players are pushed to improve without losing the fun, encouragement, and confidence young athletes need.",
     },
     {
-      quote:
-        "I've trained at clubs before, but the coaching here is different. Every session has a purpose and I can see myself getting better every week.",
-      name: "Marcus T.",
-      role: "Academy Player, Age 16",
+      icon: Shield,
+      title: "Organized Training",
+      body: "Sessions are built around movement, skill work, game play, and simple feedback so development stays easy to follow.",
     },
   ];
   return (
-    <section className="py-20 sm:py-28 bg-background">
+    <section className="snap-section py-8 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Testimonials"
-          title={<>Trusted by Families. <span className="text-green">Built for Players.</span></>}
+          eyebrow="For Parents"
+          title={<>Simple to Follow. <span className="text-green">Built for Progress.</span></>}
+          body="Parents should not have to guess what their player is getting. We make the training rhythm, expectations, and next step clear."
         />
-        <div className="mt-14 grid md:grid-cols-3 gap-6">
-          {items.map((t) => (
-            <figure key={t.name} className="rounded-2xl border border-border bg-card p-7 shadow-sm flex flex-col">
-              <Quote className="h-7 w-7 text-green" />
-              <blockquote className="mt-4 text-base text-foreground leading-relaxed flex-1">
-                "{t.quote}"
-              </blockquote>
-              <div className="mt-5 flex items-center gap-1 text-gold">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-gold" />
-                ))}
-              </div>
-              <figcaption className="mt-3">
-                <div className="font-display uppercase tracking-wide text-navy">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.role}</div>
-              </figcaption>
-            </figure>
+        <div className="mt-6 grid md:grid-cols-3 gap-5">
+          {items.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <item.icon className="h-6 w-6 text-green" />
+              <h3 className="mt-3 font-display uppercase tracking-wide text-lg text-navy">{item.title}</h3>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{item.body}</p>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 }
-
 /* ------------------------------- VALUES ------------------------------- */
 function Values() {
   const values = [
@@ -506,7 +513,7 @@ function Values() {
     { icon: Award, label: "Excellence" },
   ];
   return (
-    <section className="py-20 sm:py-28 bg-navy text-white relative overflow-hidden">
+    <section className="snap-section py-8 bg-navy text-white relative overflow-hidden">
       <div className="absolute inset-0 field-lines opacity-20" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
@@ -514,14 +521,14 @@ function Values() {
           eyebrow="Our Values"
           title={<>The Standards <span className="text-green">We Train By</span></>}
         />
-        <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {values.map((v) => (
             <div
               key={v.label}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-center hover:border-green/40 hover:bg-white/[0.06] transition"
+              className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center hover:border-green/40 hover:bg-white/[0.06] transition"
             >
-              <v.icon className="h-7 w-7 text-green mx-auto" />
-              <div className="mt-3 font-display uppercase tracking-widest text-lg">{v.label}</div>
+              <v.icon className="h-6 w-6 text-green mx-auto" />
+              <div className="mt-3 font-display uppercase tracking-widest text-base">{v.label}</div>
             </div>
           ))}
         </div>
@@ -533,13 +540,13 @@ function Values() {
 /* -------------------------------- FAQ --------------------------------- */
 function FaqSection() {
   return (
-    <section id="faq" className="py-20 sm:py-28 bg-muted/40">
+    <section id="faq" className="snap-section py-8 bg-muted/40">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="FAQ"
           title={<>Questions Parents <span className="text-green">Ask First</span></>}
         />
-        <div className="mt-10">
+        <div className="mt-6">
           <Faq />
         </div>
       </div>
@@ -550,20 +557,20 @@ function FaqSection() {
 /* ----------------------------- FINAL CTA ------------------------------ */
 function FinalCta() {
   return (
-    <section className="relative py-20 sm:py-28 bg-pitch text-white overflow-hidden">
+    <section className="snap-section relative py-8 bg-pitch text-white overflow-hidden">
       <div className="absolute inset-0 field-lines opacity-30" />
       <div className="relative mx-auto max-w-4xl text-center px-4 sm:px-6 lg:px-8">
         <Star className="h-5 w-5 fill-gold text-gold mx-auto mb-4" />
-        <h2 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
+        <h2 className="font-display uppercase text-3xl sm:text-4xl lg:text-5xl leading-[1.05] tracking-tight">
           Ready to Give Your Player a <span className="text-green">Serious Place to Grow?</span>
         </h2>
-        <p className="mt-5 text-lg text-white/80 max-w-2xl mx-auto">
-          Book a trial session and see how structured, purpose-driven training can help your player
+        <p className="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto">
+          Book a session and see how structured, purpose-driven training can help your player
           develop on and off the field.
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
+        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
           <a href="#contact" className="btn-green inline-flex items-center justify-center gap-2 font-display uppercase tracking-wider text-base px-7 py-4 rounded-md">
-            Book a Trial Session <ArrowRight className="h-5 w-5" />
+            Book a Session <ArrowRight className="h-5 w-5" />
           </a>
           <a href="#programs" className="btn-outline-light inline-flex items-center justify-center font-display uppercase tracking-wider text-base px-7 py-4 rounded-md">
             Join Academy
@@ -577,30 +584,30 @@ function FinalCta() {
 /* ------------------------------ CONTACT ------------------------------- */
 function Contact() {
   return (
-    <section id="contact" className="py-20 sm:py-28 bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12">
+    <section id="contact" className="snap-section py-8 bg-background">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-5">
           <div className="section-eyebrow">Contact</div>
-          <h2 className="mt-3 font-display uppercase text-4xl sm:text-5xl text-navy leading-[1.05]">
+          <h2 className="mt-3 font-display uppercase text-3xl sm:text-4xl text-navy leading-[1.05]">
             Start the <span className="text-green">Conversation</span>
           </h2>
-          <p className="mt-5 text-muted-foreground text-lg">
-            Tell us about your player and we'll recommend the right path. A coach will be in touch
+          <p className="mt-4 text-muted-foreground text-base">
+            Tell us about your player and we'll recommend the right path. Our team will be in touch
             within one business day.
           </p>
 
-          <div className="mt-8 space-y-4">
+          <div className="mt-5 space-y-3">
             <ContactRow icon={Mail} label="Email" value="hello@wearesoccer.com" />
             <ContactRow icon={Phone} label="Phone" value="(000) 000-0000" />
             <ContactRow icon={MapPin} label="Training Location" value="Your City, Your State" />
           </div>
 
-          <div className="mt-8 rounded-xl border border-green/20 bg-green/5 p-5">
+          <div className="mt-5 rounded-xl border border-green/20 bg-green/5 p-4">
             <div className="flex items-center gap-2 text-green font-display uppercase tracking-wider text-sm">
               <Star className="h-4 w-4 fill-green" /> Limited Spots
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              We intentionally cap each training group to protect quality coaching. Reserve a trial
+              We intentionally cap each training group to protect quality coaching. Reserve a session
               while spots are open.
             </p>
           </div>
@@ -652,7 +659,7 @@ function Footer() {
         <div className="lg:col-span-3">
           <div className="font-display uppercase tracking-widest text-xs text-green">Explore</div>
           <ul className="mt-4 space-y-2 text-sm">
-            {["About","Programs","Pathway","Coaches","FAQ","Contact"].map((l) => (
+            {["About","Programs","Pathway","Sessions","FAQ","Contact"].map((l) => (
               <li key={l}>
                 <a href={`#${l.toLowerCase()}`} className="text-white/80 hover:text-white">{l}</a>
               </li>
@@ -693,14 +700,14 @@ function SectionHeader({
     <div className="max-w-3xl">
       <div className="section-eyebrow">{eyebrow}</div>
       <h2
-        className={`mt-3 font-display uppercase text-4xl sm:text-5xl leading-[1.05] tracking-tight ${
+        className={`mt-2 font-display uppercase text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.05] tracking-tight ${
           dark ? "text-white" : "text-navy"
         }`}
       >
         {title}
       </h2>
       {body && (
-        <p className={`mt-5 text-lg leading-relaxed ${dark ? "text-white/75" : "text-muted-foreground"}`}>
+        <p className={`mt-3 text-sm sm:text-base leading-relaxed ${dark ? "text-white/75" : "text-muted-foreground"}`}>
           {body}
         </p>
       )}

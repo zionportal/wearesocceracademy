@@ -1,8 +1,7 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
 
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,6 +45,7 @@
 
 :root {
   --radius: 0.5rem;
+  --site-header-height: 4rem;
 
   /* Brand palette mapped to oklch */
   --navy-deep: oklch(0.22 0.07 260);     /* #071A33 */
@@ -79,7 +79,11 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: auto;
+    scroll-padding-top: var(--site-header-height);
+    scroll-snap-type: y mandatory;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -132,5 +136,29 @@
     letter-spacing: 0.18em;
     font-size: 0.8rem;
     color: var(--green);
+  }
+
+  .snap-section {
+    box-sizing: border-box;
+    min-height: 100svh;
+    scroll-margin-top: 0;
+    padding-top: max(var(--site-header-height), env(safe-area-inset-top));
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .snap-section > div {
+    width: 100%;
+    max-height: calc(100svh - var(--site-header-height));
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --site-header-height: 5rem;
   }
 }
