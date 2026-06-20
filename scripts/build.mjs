@@ -9,7 +9,7 @@ const dist = join(projectRoot, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
-for (const file of ['index.html', 'styles.css', 'soccer-logo.png', 'soccer-mock-up.png', 'we-are-soccer-brand-card.png']) {
+for (const file of ['index.html', 'styles.css', 'soccer-logo.png']) {
   await cp(join(projectRoot, file), join(dist, file));
 }
 

@@ -8,8 +8,6 @@ const requiredFiles = [
   "index.html",
   "styles.css",
   "soccer-logo.png",
-  "soccer-mock-up.png",
-  "we-are-soccer-brand-card.png",
 ];
 
 for (const file of requiredFiles) {
