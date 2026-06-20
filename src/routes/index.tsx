@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
+  ArrowLeft,
   ArrowRight,
   Award,
   Brain,
@@ -24,6 +25,9 @@ import { Logo } from "@/components/site/Logo";
 import { Faq } from "@/components/site/Faq";
 import { ContactForm } from "@/components/site/ContactForm";
 
+import coachOneImg from "@/assets/coach-1.jpg";
+import coachTwoImg from "@/assets/coach-2.jpg";
+import coachThreeImg from "@/assets/coach-3.jpg";
 import heroImg from "@/assets/hero-training.jpg";
 
 export const Route = createFileRoute("/")({
@@ -68,6 +72,7 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground">
       <Header />
       <Hero />
+      <ProgramPreview />
       <About />
       <Programs />
       <Pathway />
@@ -189,6 +194,93 @@ function Hero() {
             </div>
             <Star className="absolute top-6 right-10 h-5 w-5 text-gold fill-gold" />
             <Star className="absolute bottom-10 left-4 h-4 w-4 text-gold fill-gold" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------- PROGRAM PREVIEW --------------------------- */
+function ProgramPreview() {
+  const photos = [
+    {
+      src: coachOneImg,
+      alt: "Young soccer player practicing ball control during youth soccer training",
+      title: "Mini Kickers",
+      age: "Ages 2-3",
+    },
+    {
+      src: coachTwoImg,
+      alt: "Youth soccer coach leading children through an outdoor soccer activity",
+      title: "Classic Starters",
+      age: "Ages 4-6",
+    },
+    {
+      src: coachThreeImg,
+      alt: "Kids playing soccer together during a skills-based youth soccer class",
+      title: "Skill Builders",
+      age: "Ages 7-9",
+    },
+  ];
+
+  return (
+    <section className="relative bg-background py-16 sm:py-20 overflow-hidden">
+      <div className="absolute inset-0 soccer-pattern opacity-35" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="section-eyebrow">Programs for Every Age</div>
+          <h2 className="mt-3 font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tight text-navy">
+            Positive First Kicks. <span className="text-green">Real Soccer Growth.</span>
+          </h2>
+          <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Whether your child is just starting their soccer journey or ready for a bigger challenge,
+            We Are Soccer offers age-based programs that build skills, movement, confidence, teamwork,
+            and a lasting love for the game.
+          </p>
+          <p className="mt-4 text-sm sm:text-base italic text-muted-foreground">
+            Programs may vary by season and location. Contact us to find the best fit for your player.
+          </p>
+        </div>
+
+        <div className="relative mt-10">
+          <div
+            aria-hidden="true"
+            className="hidden lg:flex absolute -left-8 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-navy shadow-md"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {photos.map((photo) => (
+              <a
+                key={photo.title}
+                href="#programs"
+                className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep/90 via-navy-deep/45 to-transparent p-5 text-white">
+                    <span className="inline-flex rounded-full bg-green px-3 py-1 font-display text-xs uppercase tracking-widest text-white">
+                      {photo.age}
+                    </span>
+                    <h3 className="mt-3 font-display uppercase text-2xl tracking-wide">{photo.title}</h3>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="hidden lg:flex absolute -right-8 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-navy shadow-md"
+          >
+            <ArrowRight className="h-5 w-5" />
           </div>
         </div>
       </div>
