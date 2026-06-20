@@ -204,67 +204,74 @@ function ProgramPreview() {
     {
       src: "https://cdn.pixabay.com/photo/2015/01/26/22/40/child-613199_1280.jpg",
       alt: "Child practicing soccer ball control on a grass field",
-      title: "Mini Kickers",
-      age: "Ages 2-3",
+      title: "First Touch Camp",
+      body: "A playful soccer start for younger kids with movement games, ball touches, balance, listening, and confidence-building activities.",
     },
     {
       src: "https://cdn.pixabay.com/photo/2022/03/08/15/44/boy-7056003_1280.jpg",
       alt: "Young soccer player running with a ball during outdoor training",
-      title: "Classic Starters",
-      age: "Ages 4-6",
+      title: "Skills & Games",
+      body: "High-energy sessions where players learn dribbling, passing, shooting, teamwork, and game play while staying active and excited.",
     },
     {
       src: "https://cdn.pixabay.com/photo/2020/09/23/19/14/football-5596790_1280.jpg",
       alt: "Children playing soccer together on a field",
-      title: "Skill Builders",
-      age: "Ages 7-9",
+      title: "Summer Soccer Camp",
+      body: "A fun camp experience built around soccer challenges, small-sided games, character lessons, and plenty of touches on the ball.",
     },
   ];
 
   return (
-    <section className="relative bg-background py-16 sm:py-20 overflow-hidden">
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl">
-          <div className="section-eyebrow">Programs for Every Age</div>
-          <h2 className="mt-3 font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tight text-navy">
-            Positive First Kicks. <span className="text-green">Real Soccer Growth.</span>
+    <section className="relative bg-charcoal text-white overflow-hidden">
+      <div className="absolute inset-0 field-lines opacity-15" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-10 text-center">
+        <div className="font-display uppercase tracking-[0.18em] text-sm sm:text-base text-gold">
+          What We Do
+        </div>
+        <div className="mx-auto mt-5 max-w-4xl">
+          <h2 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tight">
+            Soccer Programs Built for <span className="text-green">Kids Who Want to Play</span>
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Whether your child is just starting their soccer journey or ready for a bigger challenge,
-            We Are Soccer offers age-based programs that build skills, movement, confidence, teamwork,
-            and a lasting love for the game.
-          </p>
-          <p className="mt-4 text-sm sm:text-base italic text-muted-foreground">
-            Programs may vary by season and location. Contact us to find the best fit for your player.
+          <p className="mt-5 text-base sm:text-xl text-white/80 leading-relaxed">
+            Our youth soccer camps and classes help kids move, smile, learn real skills, make friends,
+            and build the confidence to fall in love with the game.
           </p>
         </div>
+      </div>
 
-        <div className="relative mt-9">
+      <div className="relative">
+        <div className="mx-auto max-w-[1600px]">
           <div
             aria-hidden="true"
-            className="hidden lg:flex absolute -left-16 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-muted-foreground/50 bg-white text-muted-foreground"
+            className="hidden xl:flex absolute left-8 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white/45 bg-charcoal/70 text-white backdrop-blur"
           >
             <ArrowLeft className="h-5 w-5" />
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid md:grid-cols-3">
             {photos.map((photo) => (
               <a
                 key={photo.title}
                 href="#programs"
-                className="group block bg-card transition hover:-translate-y-1"
+                className="group relative min-h-[440px] overflow-hidden border-t border-green/50 md:min-h-[520px]"
               >
-                <div className="relative aspect-square overflow-hidden bg-muted">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="font-display uppercase text-2xl tracking-wide text-navy">{photo.title}</h3>
-                  <p className="mt-1 text-sm font-semibold uppercase tracking-widest text-green">{photo.age}</p>
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10 text-left">
+                  <h3 className="font-display uppercase text-3xl sm:text-4xl tracking-tight text-gold underline decoration-green decoration-4 underline-offset-4">
+                    {photo.title}
+                  </h3>
+                  <p className="mt-5 max-w-md text-base sm:text-lg leading-relaxed text-white/90">
+                    {photo.body}
+                  </p>
+                  <span className="mt-8 inline-flex border-x-4 border-green px-6 py-3 font-display uppercase tracking-widest text-sm text-white transition group-hover:bg-green">
+                    View Program
+                  </span>
                 </div>
               </a>
             ))}
@@ -272,7 +279,7 @@ function ProgramPreview() {
 
           <div
             aria-hidden="true"
-            className="hidden lg:flex absolute -right-16 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-muted-foreground/50 bg-white text-muted-foreground"
+            className="hidden xl:flex absolute right-8 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white/45 bg-charcoal/70 text-white backdrop-blur"
           >
             <ArrowRight className="h-5 w-5" />
           </div>
