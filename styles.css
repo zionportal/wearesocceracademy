@@ -138,8 +138,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
-  gap: 54px;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   min-height: 720px;
   padding-top: 70px;
@@ -197,18 +196,6 @@ h3 { font-size: 1.45rem; }
 
 .trust-points strong { display: block; margin-bottom: 6px; text-transform: uppercase; }
 .trust-points span { color: rgba(255, 255, 255, 0.76); font-weight: 700; }
-
-.hero-card {
-  padding: 26px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.94);
-  color: var(--navy);
-  box-shadow: var(--shadow);
-}
-
-.hero-card img { width: 150px; margin: 0 auto 20px; }
-.hero-card p { margin: 0 0 6px; color: var(--orange); font-weight: 950; text-transform: uppercase; }
-.hero-card strong { display: block; font-size: 1.35rem; line-height: 1.2; }
 
 .trust-bar {
   background: #fff;
@@ -304,7 +291,6 @@ details p { margin: 12px 0 0; color: var(--muted); font-weight: 700; }
   .nav-cta { margin-left: auto; }
   .hero, .hero-inner { min-height: auto; }
   .hero-inner, .split, .two-panel, .school-card, .coaching-grid, .cta-inner { grid-template-columns: 1fr; }
-  .hero-card { max-width: 360px; }
   .program-grid, .trust-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
