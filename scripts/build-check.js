@@ -26,6 +26,7 @@ const checks = [
   [(html.match(/<h1/g) || []).length === 1, "index.html must include exactly one h1"],
   [html.includes("name=\"description\""), "index.html must include a meta description"],
   [html.includes("application/ld+json"), "index.html must include structured data"],
+  [!html.toLowerCase().includes("brand card"), "index.html must not expose internal brand-card language"],
   [css.includes("@media"), "styles.css must include responsive rules"],
 ];
 
