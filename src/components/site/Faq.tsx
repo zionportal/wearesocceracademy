@@ -8,27 +8,31 @@ import {
 const faqs = [
   {
     q: "What ages do you train?",
-    a: "We train young players from early childhood through the teen years, with sessions grouped by age, skill level, and readiness.",
+    a: "We train young players from toddler and preschool ages through the teen years, with sessions grouped by age, skill level, and readiness.",
   },
   {
     q: "Is this for beginners or advanced players?",
-    a: "Both. New players learn rhythm, confidence, and ball comfort. Advanced players work on speed of play, decision-making, and competitive habits.",
+    a: "Both. Beginners learn movement, confidence, listening, and ball comfort. More experienced players work on stronger technique, decisions, teamwork, and speed of play.",
   },
   {
     q: "How does a session work?",
-    a: "Each session starts with activation, moves into skill work, adds game-based pressure, and ends with a reset so players know what to practice next.",
+    a: "Each session starts with an active warmup game, moves into a soccer skill, adds small-sided play, and ends with a quick huddle around the day's skill or character focus.",
   },
   {
     q: "What makes We Are Soccer different?",
-    a: "We combine soccer skill, fitness, confidence, discipline, and character in one clear training system, so players grow on and off the field.",
+    a: "We combine soccer skill, active play, confidence, teamwork, and character in one clear program so kids improve while still having fun.",
   },
   {
     q: "Do you offer private training?",
-    a: "Yes. Private sessions, small groups, seasonal camps, and focused clinics are available for players who want extra reps or targeted development.",
+    a: "Yes. Private sessions, small groups, seasonal camps, and focused clinics are available for players who want extra reps, targeted development, or school-break activity.",
+  },
+  {
+    q: "Can you bring soccer to a school or childcare center?",
+    a: "Yes. We can discuss school, preschool, daycare, after-school, and community enrichment options based on location, schedule, space, and age group.",
   },
   {
     q: "How do families join?",
-    a: "Start by booking a session. After we see your player train, we recommend the right age group, training rhythm, and next step.",
+    a: "Start by sending a request. We will learn about your player, recommend a class or training option, and help you understand the next step.",
   },
   {
     q: "Where are sessions held?",

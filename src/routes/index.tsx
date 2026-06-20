@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
 import {
   ArrowRight,
   Award,
@@ -30,17 +29,17 @@ import heroImg from "@/assets/hero-training.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "We Are Soccer | Youth Soccer Training & Player Development" },
+      { title: "We Are Soccer | Fun Youth Soccer Programs & Player Development" },
       {
         name: "description",
         content:
-          "We Are Soccer helps young players build skill, fitness, confidence, discipline, and love for the game through age-based soccer training.",
+          "We Are Soccer helps kids build soccer skills, confidence, teamwork, and a love for the game through fun age-based youth soccer programs.",
       },
-      { property: "og:title", content: "We Are Soccer | Youth Soccer Training & Player Development" },
+      { property: "og:title", content: "We Are Soccer | Fun Youth Soccer Programs & Player Development" },
       {
         property: "og:description",
         content:
-          "Age-based youth soccer training focused on skill, confidence, discipline, fitness, and game understanding.",
+          "Fun youth soccer classes focused on age-appropriate skills, confidence, teamwork, character, and game understanding.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -54,7 +53,7 @@ export const Route = createFileRoute("/")({
           "@type": "SportsActivityLocation",
           name: "We Are Soccer Academy",
           description:
-            "Youth soccer academy developing players through age-based training, technical skill, fitness, discipline, and game confidence.",
+            "Youth soccer academy helping kids develop soccer skills, confidence, teamwork, character, and game understanding through age-based programs.",
           sport: "Soccer",
           url: "/",
         }),
@@ -65,8 +64,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  useSectionSnap();
-
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
       <Header />
@@ -76,8 +73,10 @@ function Index() {
       <Pathway />
       <Philosophy />
       <SessionFlow />
+      <SchoolPartners />
       <Parents />
       <Values />
+      <Testimonials />
       <FaqSection />
       <FinalCta />
       <Contact />
@@ -86,53 +85,12 @@ function Index() {
   );
 }
 
-function useSectionSnap() {
-  useEffect(() => {
-    let timer: number | undefined;
-    let snapping = false;
-
-    const snapToNearestSection = () => {
-      if (snapping) return;
-
-      const sections = Array.from(document.querySelectorAll<HTMLElement>(".snap-section"));
-      if (!sections.length) return;
-
-      const currentY = window.scrollY;
-      const nearest = sections.reduce((closest, section) => {
-        const sectionTop = section.offsetTop;
-        const closestTop = closest.offsetTop;
-        return Math.abs(sectionTop - currentY) < Math.abs(closestTop - currentY) ? section : closest;
-      }, sections[0]);
-
-      const targetTop = nearest.offsetTop;
-      if (Math.abs(targetTop - currentY) < 8) return;
-
-      snapping = true;
-      window.scrollTo({ top: targetTop, behavior: "smooth" });
-      window.setTimeout(() => {
-        snapping = false;
-      }, 260);
-    };
-
-    const onScroll = () => {
-      if (timer) window.clearTimeout(timer);
-      timer = window.setTimeout(snapToNearestSection, 140);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      if (timer) window.clearTimeout(timer);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-}
-
 /* ------------------------------- HERO -------------------------------- */
 function Hero() {
   return (
     <section className="snap-section relative bg-pitch pt-16 sm:pt-20 pb-8 overflow-hidden">
       <div className="absolute inset-0 field-lines opacity-40" />
+      <div className="absolute inset-0 soccer-pattern opacity-40" />
       <img
         src={heroImg}
         alt=""
@@ -146,23 +104,23 @@ function Hero() {
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 mb-4">
             <Sparkles className="h-3.5 w-3.5 text-gold" />
             <span className="text-xs uppercase tracking-[0.2em] text-silver">
-              Year-Round Youth Soccer Development
+              Fun Youth Soccer Programs for Growing Players
             </span>
           </div>
 
           <h1 className="font-display uppercase text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
-            Train With Truth.
+            Let&apos;s Play Soccer.
             <br />
-            <span className="text-green">Play With Purpose.</span>
+            <span className="text-green">Grow With Confidence.</span>
           </h1>
 
           <p className="mt-5 text-lg sm:text-xl text-silver font-medium">
-            Age-based training. Real confidence. Better habits with the ball.
+            A high-energy youth soccer academy where kids learn skills, teamwork, and joy for the game.
           </p>
 
           <p className="mt-5 max-w-xl text-base sm:text-lg text-white/75 leading-relaxed">
-            We help young players build soccer skill, fitness, discipline, and joy for the game
-            through structured sessions designed for each stage of development.
+            We help children build dribbling, passing, shooting, coordination, confidence, and character
+            through age-appropriate sessions that feel active, positive, and fun from the first whistle.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -170,15 +128,21 @@ function Hero() {
               href="#contact"
               className="btn-green inline-flex items-center justify-center gap-2 font-display uppercase tracking-wider text-base px-7 py-4 rounded-md"
             >
-              Join Academy <ArrowRight className="h-5 w-5" />
+              Find Your Program <ArrowRight className="h-5 w-5" />
+            </a>
+            <a
+              href="#programs"
+              className="btn-outline-light inline-flex items-center justify-center gap-2 font-display uppercase tracking-wider text-base px-7 py-4 rounded-md"
+            >
+              Explore Classes
             </a>
           </div>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl">
             {[
-              { icon: Trophy, label: "Age-Based Classes" },
-              { icon: Shield, label: "Fitness & Discipline" },
-              { icon: Compass, label: "Skill Progression" },
+              { icon: Trophy, label: "Ages 2-16" },
+              { icon: Heart, label: "Confidence & Character" },
+              { icon: Compass, label: "Skills Through Play" },
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
@@ -194,15 +158,15 @@ function Hero() {
 
           <p className="mt-5 text-sm text-gold/90 flex items-center gap-2">
             <Star className="h-4 w-4 fill-gold text-gold" />
-            Limited training spots available for committed players and families.
+            Built for beginners, growing players, and kids ready for a bigger soccer challenge.
           </p>
 
           <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2 max-w-2xl">
             {[
-              "Player-first training",
-              "Parent-trusted development",
-              "Year-round development",
-              "Camps, clinics, private training",
+              "Fun-first coaching",
+              "Age-friendly groups",
+              "Character each session",
+              "Classes, camps, clinics",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2 text-white/80">
                 <CheckCircle2 className="h-4 w-4 text-green flex-shrink-0" />
@@ -216,6 +180,8 @@ function Hero() {
         <div className="lg:col-span-5 relative hidden lg:block">
           <div className="relative mx-auto aspect-square max-w-md">
             <div className="absolute inset-0 rounded-full bg-green/10 blur-3xl" />
+            <div className="ball-badge absolute -right-4 top-8 h-20 w-20 rounded-full border-4 border-white shadow-2xl" />
+            <div className="ball-badge absolute left-2 bottom-12 h-12 w-12 rounded-full border-2 border-white shadow-xl" />
             <div className="absolute inset-6 rounded-full border border-white/10" />
             <div className="absolute inset-16 rounded-full border border-white/10" />
             <div className="relative h-full w-full flex items-center justify-center">
@@ -235,18 +201,18 @@ function About() {
   const cards = [
     {
       icon: Target,
-      title: "Skill First",
-      body: "Players build touch, passing, finishing, control, and confidence through focused repetition and live pressure.",
+      title: "Soccer Skills",
+      body: "Players build dribbling, passing, shooting, ball control, and comfort through games, challenges, and guided repetition.",
     },
     {
       icon: Heart,
-      title: "Active & Confident",
-      body: "Training keeps kids moving while developing coordination, flexibility, focus, and a stronger relationship with the game.",
+      title: "Fun & Confidence",
+      body: "Sessions keep kids moving, smiling, trying new things, and learning that progress comes from effort.",
     },
     {
       icon: Compass,
-      title: "Clear Progression",
-      body: "Each age group has a purpose, so players know what they are learning and families know what comes next.",
+      title: "Character Growth",
+      body: "Coaches reinforce teamwork, respect, listening, independence, and positive habits that carry beyond the field.",
     },
   ];
   return (
@@ -254,8 +220,8 @@ function About() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="About We Are Soccer"
-          title={<>Built for Young Players. <span className="text-green">Structured for Growth.</span></>}
-          body="We Are Soccer blends ball mastery, movement, confidence, discipline, and game play into a training experience players can enjoy while improving."
+          title={<>Youth Soccer Should Feel <span className="text-green">Exciting, Safe, and Worthwhile.</span></>}
+          body="We Are Soccer blends skill-building, movement, imagination, teamwork, and positive coaching into a program kids look forward to and parents can trust."
         />
         <div className="mt-6 grid md:grid-cols-3 gap-4">
           {cards.map((c) => (
@@ -282,40 +248,40 @@ function About() {
 function Programs() {
   const programs = [
     {
-      tag: "Ages 2-4",
-      title: "Toddlers / First Touch",
-      who: "Early learners discovering movement, balance, and the ball.",
-      benefit: "Builds comfort, coordination, listening habits, and soccer curiosity.",
+      tag: "Ages 2-3",
+      title: "Mini Kickers",
+      who: "Toddlers discovering movement, balance, listening, and the ball.",
+      benefit: "Uses songs, simple games, and parent-friendly coaching to make soccer feel joyful.",
     },
     {
       tag: "Ages 4-6",
-      title: "U6 Fundamentals",
-      who: "Young players ready for simple skills and fun game play.",
-      benefit: "Develops dribbling, passing basics, confidence, and group participation.",
+      title: "Classic Starters",
+      who: "Preschool and early elementary players ready for simple skills and fun game play.",
+      benefit: "Develops dribbling, passing, shooting basics, confidence, and group participation.",
     },
     {
       tag: "Ages 7-9",
-      title: "U9 Skill Builder",
-      who: "Players building stronger technique and faster decisions.",
-      benefit: "Improves first touch, 1v1 play, ball control, and small-sided awareness.",
+      title: "Skill Builders",
+      who: "Players building stronger technique, faster decisions, and teamwork.",
+      benefit: "Improves first touch, 1v1 play, ball control, small-sided games, and sportsmanship.",
     },
     {
       tag: "Ages 10-13",
-      title: "U13 Development",
-      who: "Players preparing for a more demanding soccer environment.",
-      benefit: "Adds tactical habits, fitness, discipline, and competitive rhythm.",
+      title: "Premier Development",
+      who: "Players ready for a more demanding soccer environment.",
+      benefit: "Adds tactical habits, fitness, discipline, team play, and a healthy competitive rhythm.",
     },
     {
       tag: "Ages 14-16",
-      title: "U15 Academy Prep",
+      title: "Academy Prep",
       who: "Older players who want higher standards and sharper execution.",
       benefit: "Builds speed of play, leadership, conditioning, and next-level readiness.",
     },
     {
       tag: "All Ages",
-      title: "Private, Camps & Clinics",
-      who: "Players who need focused reps, seasonal activity, or extra development.",
-      benefit: "Targets specific skills through private sessions, camps, and clinics.",
+      title: "Camps, Clinics & Private Training",
+      who: "Players who need seasonal fun, focused reps, or extra development.",
+      benefit: "Targets specific skills through small groups, school-break camps, clinics, and private sessions.",
     },
   ];
   return (
@@ -323,8 +289,8 @@ function Programs() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Programs"
-          title={<>Classes for <span className="text-green">Every Stage</span></>}
-          body="From first touches to academy preparation, each group is built around age, ability, and the way young players actually learn."
+          title={<>Programs for <span className="text-green">Every Age and Stage</span></>}
+          body="From toddler first touches to academy preparation, each class is built around age, ability, attention span, and the way young players actually learn."
         />
         <div className="mt-5 grid md:grid-cols-3 gap-4">
           {programs.map((p) => (
@@ -357,10 +323,10 @@ function Programs() {
 /* ------------------------------ PATHWAY ------------------------------- */
 function Pathway() {
   const steps = [
-    { n: "01", title: "Learn the Game", body: "Foundations, fundamentals, and a true love for the ball." },
-    { n: "02", title: "Build Discipline", body: "Consistency, focus, and habits that define every elite player." },
-    { n: "03", title: "Compete With Purpose", body: "Apply technique under pressure. Train to win the right way." },
-    { n: "04", title: "Prepare for Opportunity", body: "Club, school, travel, and the next stage - ready, evaluated, and equipped." },
+    { n: "01", title: "Discover", body: "Meet the ball, move the body, listen to the coach, and learn that soccer is fun." },
+    { n: "02", title: "Build", body: "Grow dribbling, passing, shooting, coordination, confidence, and teamwork." },
+    { n: "03", title: "Play", body: "Use skills in small-sided games where kids make decisions and support teammates." },
+    { n: "04", title: "Progress", body: "Move into higher-level training, camps, clinics, school teams, clubs, or private development." },
   ];
   return (
     <section id="pathway" className="snap-section relative py-8 bg-navy text-white overflow-hidden">
@@ -369,8 +335,8 @@ function Pathway() {
         <SectionHeader
           dark
           eyebrow="Player Pathway"
-          title={<>A Clear Pathway from <span className="text-green">First Touch</span> to Future Opportunity</>}
-          body="Every player follows a structured journey. Each stage builds the skill, mindset, and standards required for the next."
+          title={<>From <span className="text-green">First Kicks</span> to Bigger Goals</>}
+          body="Every player follows a simple, encouraging journey. Each stage adds the next layer of skill, confidence, teamwork, and game understanding."
         />
 
         <div className="mt-6 relative">
@@ -400,19 +366,19 @@ function Pathway() {
 /* ----------------------------- PHILOSOPHY ----------------------------- */
 function Philosophy() {
   const blocks = [
-    { icon: Target, title: "Technical Skill", body: "Repeatable, high-quality execution under pressure." },
-    { icon: Brain, title: "Tactical Understanding", body: "Reading the game, choosing right, playing smarter." },
-    { icon: Dumbbell, title: "Athletic Development", body: "Speed, strength, and durability built for soccer." },
-    { icon: Shield, title: "Mental Discipline", body: "Focus, composure, and the ability to compete." },
-    { icon: Heart, title: "Character & Leadership", body: "Players who lead themselves and lift others." },
+    { icon: Target, title: "Ball Skills", body: "Dribbling, passing, shooting, control, and comfort with both feet." },
+    { icon: Brain, title: "Smart Choices", body: "Reading space, finding teammates, and learning simple game ideas." },
+    { icon: Dumbbell, title: "Active Bodies", body: "Balance, speed, coordination, agility, and healthy movement." },
+    { icon: Shield, title: "Confidence", body: "Trying again, listening well, staying focused, and handling challenges." },
+    { icon: Heart, title: "Character", body: "Respect, teamwork, appreciation, independence, and positive energy." },
   ];
   return (
     <section className="snap-section py-8 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Training Philosophy"
-          title={<>More Than Drills. <span className="text-green">A Complete Player System.</span></>}
-          body="Five pillars define every session. Together they develop the player and the person."
+          title={<>More Than Drills. <span className="text-green">Skills Kids Can Feel Proud Of.</span></>}
+          body="Each session builds the player and the person with soccer skill, active play, simple teaching, and character moments kids can understand."
         />
         <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {blocks.map((b) => (
@@ -431,18 +397,18 @@ function Philosophy() {
 /* ----------------------------- SESSION FLOW ---------------------------- */
 function SessionFlow() {
   const steps = [
-    { icon: Dumbbell, title: "Warm Up", body: "Players activate their bodies, get focused, and prepare for the session with movement and ball touches." },
-    { icon: Target, title: "Skill Work", body: "Guided reps build dribbling, passing, shooting, control, and confidence." },
-    { icon: Users, title: "Game Play", body: "Small-sided games turn skills into decisions, teamwork, vision, and competitive habits." },
-    { icon: Brain, title: "Cool Down", body: "Players reset, review what they learned, and leave with a simple focus for the next session." },
+    { icon: Dumbbell, title: "Kickoff Game", body: "Players start moving right away with a fun activity that gets their bodies and attention ready." },
+    { icon: Target, title: "Skill Adventure", body: "Coaches teach dribbling, passing, shooting, and control through challenges kids can understand." },
+    { icon: Users, title: "Team Play", body: "Small-sided games help players make decisions, share the ball, compete, and cheer each other on." },
+    { icon: Brain, title: "Victory Huddle", body: "Players review the day's skill or character word and leave with something simple to practice." },
   ];
   return (
     <section id="sessions" className="snap-section py-8 bg-muted/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Session Flow"
-          title={<>What Players <span className="text-green">Can Expect</span></>}
-          body="Every class has a rhythm: prepare the body, build the skill, apply it in play, then leave with a clear next step."
+          title={<>A Class Rhythm That Keeps Kids <span className="text-green">Moving and Smiling</span></>}
+          body="Every class has a clear rhythm: start with energy, learn a soccer skill, use it in play, then finish with encouragement and a simple next step."
         />
         <div className="mt-6 grid md:grid-cols-4 gap-4">
           {steps.map((step, index) => (
@@ -462,23 +428,76 @@ function SessionFlow() {
     </section>
   );
 }
+
+/* --------------------------- SCHOOL PARTNERS --------------------------- */
+function SchoolPartners() {
+  const partners = [
+    "Preschools",
+    "Daycares",
+    "Elementary schools",
+    "Community groups",
+  ];
+
+  return (
+    <section className="snap-section py-8 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 soccer-pattern opacity-50" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-7">
+          <SectionHeader
+            eyebrow="Schools & Community"
+            title={<>Bring Youth Soccer <span className="text-green">to Your School or Center</span></>}
+            body="We Are Soccer can partner with local schools, childcare centers, and community programs to bring a positive soccer enrichment experience directly to kids."
+          />
+          <div className="mt-6 grid sm:grid-cols-2 gap-3">
+            {partners.map((partner) => (
+              <div key={partner} className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-sm">
+                <CheckCircle2 className="h-5 w-5 text-green flex-shrink-0" />
+                <span className="font-display uppercase tracking-wide text-navy">{partner}</span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-sm text-muted-foreground leading-relaxed max-w-2xl">
+            Programs can be shaped around age groups, space, schedule, and the goals of the organization.
+            The goal is simple: more kids moving, learning, laughing, and building confidence through soccer.
+          </p>
+        </div>
+
+        <div className="lg:col-span-5">
+          <div className="relative rounded-3xl bg-navy text-white p-6 sm:p-8 shadow-xl overflow-hidden">
+            <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-green/20" />
+            <div className="ball-badge absolute right-6 top-6 h-14 w-14 rounded-full border-2 border-white shadow-lg" />
+            <h3 className="font-display uppercase text-3xl leading-tight pr-16">
+              Soccer enrichment that feels organized, upbeat, and kid-friendly.
+            </h3>
+            <p className="mt-4 text-white/75 text-sm leading-relaxed">
+              Ideal for after-school activities, seasonal sessions, youth events, and introductory soccer programs.
+            </p>
+            <a href="#contact" className="mt-6 inline-flex btn-green font-display uppercase tracking-wider text-sm px-5 py-3 rounded-md">
+              Ask About School Programs
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 /* ------------------------------ PARENTS ------------------------------- */
 function Parents() {
   const items = [
     {
       icon: CheckCircle2,
-      title: "Clear Expectations",
-      body: "Families know what each session is for, what players are practicing, and how the next step is chosen.",
+      title: "Clear Class Fit",
+      body: "Families get help choosing the right age group, skill level, and training option for their player.",
     },
     {
       icon: Heart,
-      title: "Positive Standards",
-      body: "Players are pushed to improve without losing the fun, encouragement, and confidence young athletes need.",
+      title: "Positive Coaching",
+      body: "Players are encouraged to improve without losing the fun, patience, and confidence young athletes need.",
     },
     {
       icon: Shield,
-      title: "Organized Training",
-      body: "Sessions are built around movement, skill work, game play, and simple feedback so development stays easy to follow.",
+      title: "Organized Sessions",
+      body: "Classes are built around movement, skill work, game play, and simple feedback so development stays easy to follow.",
     },
   ];
   return (
@@ -486,8 +505,8 @@ function Parents() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="For Parents"
-          title={<>Simple to Follow. <span className="text-green">Built for Progress.</span></>}
-          body="Parents should not have to guess what their player is getting. We make the training rhythm, expectations, and next step clear."
+          title={<>Easy for Parents. <span className="text-green">Exciting for Kids.</span></>}
+          body="Parents should not have to guess what their player is getting. We make the class rhythm, expectations, and next step clear."
         />
         <div className="mt-6 grid md:grid-cols-3 gap-5">
           {items.map((item) => (
@@ -505,12 +524,12 @@ function Parents() {
 /* ------------------------------- VALUES ------------------------------- */
 function Values() {
   const values = [
-    { icon: Flag, label: "Truth" },
-    { icon: Shield, label: "Discipline" },
-    { icon: Target, label: "Development" },
+    { icon: Flag, label: "Fun" },
+    { icon: Shield, label: "Respect" },
+    { icon: Target, label: "Skill" },
     { icon: Users, label: "Teamwork" },
-    { icon: Compass, label: "Purpose" },
-    { icon: Award, label: "Excellence" },
+    { icon: Compass, label: "Confidence" },
+    { icon: Award, label: "Effort" },
   ];
   return (
     <section className="snap-section py-8 bg-navy text-white relative overflow-hidden">
@@ -519,7 +538,7 @@ function Values() {
         <SectionHeader
           dark
           eyebrow="Our Values"
-          title={<>The Standards <span className="text-green">We Train By</span></>}
+          title={<>The Character Words <span className="text-green">We Coach By</span></>}
         />
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {values.map((v) => (
@@ -530,6 +549,60 @@ function Values() {
               <v.icon className="h-6 w-6 text-green mx-auto" />
               <div className="mt-3 font-display uppercase tracking-widest text-base">{v.label}</div>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------- TESTIMONIALS ---------------------------- */
+function Testimonials() {
+  const quotes = [
+    {
+      title: "Confidence after the first class",
+      quote:
+        "Our son was nervous at first, but the coaches made it fun right away. He left talking about his new moves and asking when he could come back.",
+      name: "Parent of a Mini Kicker",
+    },
+    {
+      title: "Organized and upbeat",
+      quote:
+        "The class had structure without feeling too serious. The kids were active the whole time, learning skills and cheering for each other.",
+      name: "Local soccer parent",
+    },
+    {
+      title: "More than soccer drills",
+      quote:
+        "We love that they teach listening, teamwork, and effort alongside the soccer skills. It feels like a great first sports experience.",
+      name: "Youth program family",
+    },
+  ];
+
+  return (
+    <section className="snap-section py-8 bg-muted/40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="Parent Proof"
+          title={<>Kids Feel the Fun. <span className="text-green">Parents See the Growth.</span></>}
+          body="Families want soccer to be active, organized, encouraging, and worth the time. That is the experience we are building."
+        />
+        <div className="mt-6 grid md:grid-cols-3 gap-5">
+          {quotes.map((item) => (
+            <figure key={item.title} className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <div className="flex gap-1 text-gold" aria-label="5 star review">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} className="h-4 w-4 fill-gold" />
+                ))}
+              </div>
+              <h3 className="mt-4 font-display uppercase tracking-wide text-lg text-navy">{item.title}</h3>
+              <blockquote className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                "{item.quote}"
+              </blockquote>
+              <figcaption className="mt-4 font-display uppercase tracking-widest text-xs text-green">
+                {item.name}
+              </figcaption>
+            </figure>
           ))}
         </div>
       </div>
@@ -562,18 +635,18 @@ function FinalCta() {
       <div className="relative mx-auto max-w-4xl text-center px-4 sm:px-6 lg:px-8">
         <Star className="h-5 w-5 fill-gold text-gold mx-auto mb-4" />
         <h2 className="font-display uppercase text-3xl sm:text-4xl lg:text-5xl leading-[1.05] tracking-tight">
-          Ready to Give Your Player a <span className="text-green">Serious Place to Grow?</span>
+          Ready to Give Your Player a <span className="text-green">Fun Place to Grow?</span>
         </h2>
         <p className="mt-4 text-base sm:text-lg text-white/80 max-w-2xl mx-auto">
-          Book a session and see how structured, purpose-driven training can help your player
-          develop on and off the field.
+          Find the right class, camp, clinic, or training option and help your child build soccer skills,
+          confidence, teamwork, and a lasting love for the game.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
           <a href="#contact" className="btn-green inline-flex items-center justify-center gap-2 font-display uppercase tracking-wider text-base px-7 py-4 rounded-md">
-            Book a Session <ArrowRight className="h-5 w-5" />
+            Find a Class <ArrowRight className="h-5 w-5" />
           </a>
           <a href="#programs" className="btn-outline-light inline-flex items-center justify-center font-display uppercase tracking-wider text-base px-7 py-4 rounded-md">
-            Join Academy
+            View Programs
           </a>
         </div>
       </div>
@@ -589,11 +662,11 @@ function Contact() {
         <div className="lg:col-span-5">
           <div className="section-eyebrow">Contact</div>
           <h2 className="mt-3 font-display uppercase text-3xl sm:text-4xl text-navy leading-[1.05]">
-            Start the <span className="text-green">Conversation</span>
+            Find the <span className="text-green">Right Soccer Program</span>
           </h2>
           <p className="mt-4 text-muted-foreground text-base">
-            Tell us about your player and we'll recommend the right path. Our team will be in touch
-            within one business day.
+            Tell us about your player and we&apos;ll recommend the right class, camp, clinic, school program,
+            or training path. Our team will be in touch within one business day.
           </p>
 
           <div className="mt-5 space-y-3">
@@ -604,11 +677,11 @@ function Contact() {
 
           <div className="mt-5 rounded-xl border border-green/20 bg-green/5 p-4">
             <div className="flex items-center gap-2 text-green font-display uppercase tracking-wider text-sm">
-              <Star className="h-4 w-4 fill-green" /> Limited Spots
+              <Star className="h-4 w-4 fill-green" /> Class Spots
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              We intentionally cap each training group to protect quality coaching. Reserve a session
-              while spots are open.
+              Groups are kept organized so every child gets attention, encouragement, and enough touches
+              on the ball. Reach out to check class availability.
             </p>
           </div>
         </div>
@@ -651,8 +724,8 @@ function Footer() {
             </div>
           </div>
           <p className="mt-5 text-sm text-white/70 max-w-md leading-relaxed">
-            We Are Soccer develops complete players through elite training, strong character, and
-            purpose-driven development.
+            We Are Soccer helps kids build soccer skills, confidence, teamwork, and character through
+            fun age-based classes, camps, clinics, and training programs.
           </p>
         </div>
 
@@ -686,7 +759,7 @@ function Footer() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-3 text-xs text-white/50">
         <div>© {new Date().getFullYear()} We Are Soccer Academy. All rights reserved.</div>
-        <div className="font-display uppercase tracking-widest">Train With Truth. Play With Purpose.</div>
+        <div className="font-display uppercase tracking-widest">Let's Play Soccer. Grow With Confidence.</div>
       </div>
     </footer>
   );

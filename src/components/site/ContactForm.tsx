@@ -2,13 +2,14 @@ import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 
 const programs = [
-  "Toddlers / First Touch",
-  "U6 Fundamentals",
-  "U9 Skill Builder",
-  "U13 Player Development",
-  "U15 Academy Prep",
+  "Mini Kickers",
+  "Classic Starters",
+  "Skill Builders",
+  "Premier Development",
+  "Academy Prep",
   "Private & Small Group Training",
   "Seasonal Camps & Clinics",
+  "School or Childcare Program",
   "Not Sure Yet",
 ];
 
@@ -27,11 +28,11 @@ export function ContactForm() {
           <CheckCircle2 className="h-8 w-8 text-green" />
         </div>
         <h3 className="font-display text-2xl text-navy uppercase tracking-wide">
-          Request received
+          Soccer request received
         </h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thank you. A member of the We Are Soccer team will reach out within one business day to
-          confirm your session and answer any questions.
+          recommend the right program and answer any questions.
         </p>
       </div>
     );
@@ -45,7 +46,7 @@ export function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Field label="Parent Name"><input required className={field} placeholder="Jane Smith" /></Field>
         <Field label="Player Name"><input required className={field} placeholder="Alex Smith" /></Field>
-        <Field label="Player Age"><input required type="number" min={4} max={20} className={field} placeholder="12" /></Field>
+        <Field label="Player Age"><input required type="number" min={2} max={20} className={field} placeholder="6" /></Field>
         <Field label="Email"><input required type="email" className={field} placeholder="you@email.com" /></Field>
         <Field label="Phone"><input required type="tel" className={field} placeholder="(000) 000-0000" /></Field>
         <Field label="Program Interest">
@@ -56,7 +57,7 @@ export function ContactForm() {
         </Field>
         <div className="sm:col-span-2">
           <Field label="Message">
-            <textarea rows={3} className={field} placeholder="Tell us a bit about your player and goals." />
+            <textarea rows={3} className={field} placeholder="Tell us about your player, school, or program goals." />
           </Field>
         </div>
       </div>
@@ -65,7 +66,7 @@ export function ContactForm() {
         type="submit"
         className="btn-green w-full mt-5 font-display uppercase tracking-wider text-base px-6 py-3 rounded-md"
       >
-        Book a Session
+        Find My Program
       </button>
       <p className="mt-3 text-xs text-muted-foreground text-center">
         We respect your privacy. Your information is only used to coordinate your session.

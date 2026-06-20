@@ -54,7 +54,7 @@ export function Header() {
             href="#contact"
             className="hidden sm:inline-flex btn-green font-display uppercase tracking-wider text-sm px-5 py-2.5 rounded-md"
           >
-            Book a Session
+            Find a Class
           </a>
           <button
             className="lg:hidden text-white p-2 -mr-2"
@@ -84,7 +84,7 @@ export function Header() {
               onClick={() => setOpen(false)}
               className="btn-green text-center font-display uppercase tracking-wider text-sm px-5 py-3 rounded-md mt-3"
             >
-              Book a Session
+              Find a Class
             </a>
           </div>
         </div>
