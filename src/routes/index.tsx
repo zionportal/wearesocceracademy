@@ -25,9 +25,6 @@ import { Logo } from "@/components/site/Logo";
 import { Faq } from "@/components/site/Faq";
 import { ContactForm } from "@/components/site/ContactForm";
 
-import coachOneImg from "@/assets/coach-1.jpg";
-import coachTwoImg from "@/assets/coach-2.jpg";
-import coachThreeImg from "@/assets/coach-3.jpg";
 import heroImg from "@/assets/hero-training.jpg";
 
 export const Route = createFileRoute("/")({
@@ -205,20 +202,20 @@ function Hero() {
 function ProgramPreview() {
   const photos = [
     {
-      src: coachOneImg,
-      alt: "Young soccer player practicing ball control during youth soccer training",
+      src: "https://cdn.pixabay.com/photo/2015/01/26/22/40/child-613199_1280.jpg",
+      alt: "Child practicing soccer ball control on a grass field",
       title: "Mini Kickers",
       age: "Ages 2-3",
     },
     {
-      src: coachTwoImg,
-      alt: "Youth soccer coach leading children through an outdoor soccer activity",
+      src: "https://cdn.pixabay.com/photo/2022/03/08/15/44/boy-7056003_1280.jpg",
+      alt: "Young soccer player running with a ball during outdoor training",
       title: "Classic Starters",
       age: "Ages 4-6",
     },
     {
-      src: coachThreeImg,
-      alt: "Kids playing soccer together during a skills-based youth soccer class",
+      src: "https://cdn.pixabay.com/photo/2020/09/23/19/14/football-5596790_1280.jpg",
+      alt: "Children playing soccer together on a field",
       title: "Skill Builders",
       age: "Ages 7-9",
     },
@@ -226,9 +223,8 @@ function ProgramPreview() {
 
   return (
     <section className="relative bg-background py-16 sm:py-20 overflow-hidden">
-      <div className="absolute inset-0 soccer-pattern opacity-35" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="max-w-5xl">
           <div className="section-eyebrow">Programs for Every Age</div>
           <h2 className="mt-3 font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tight text-navy">
             Positive First Kicks. <span className="text-green">Real Soccer Growth.</span>
@@ -243,34 +239,32 @@ function ProgramPreview() {
           </p>
         </div>
 
-        <div className="relative mt-10">
+        <div className="relative mt-9">
           <div
             aria-hidden="true"
-            className="hidden lg:flex absolute -left-8 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-navy shadow-md"
+            className="hidden lg:flex absolute -left-16 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-muted-foreground/50 bg-white text-muted-foreground"
           >
             <ArrowLeft className="h-5 w-5" />
           </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-3">
             {photos.map((photo) => (
               <a
                 key={photo.title}
                 href="#programs"
-                className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                className="group block bg-card transition hover:-translate-y-1"
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+                <div className="relative aspect-square overflow-hidden bg-muted">
                   <img
                     src={photo.src}
                     alt={photo.alt}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep/90 via-navy-deep/45 to-transparent p-5 text-white">
-                    <span className="inline-flex rounded-full bg-green px-3 py-1 font-display text-xs uppercase tracking-widest text-white">
-                      {photo.age}
-                    </span>
-                    <h3 className="mt-3 font-display uppercase text-2xl tracking-wide">{photo.title}</h3>
-                  </div>
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="font-display uppercase text-2xl tracking-wide text-navy">{photo.title}</h3>
+                  <p className="mt-1 text-sm font-semibold uppercase tracking-widest text-green">{photo.age}</p>
                 </div>
               </a>
             ))}
@@ -278,7 +272,7 @@ function ProgramPreview() {
 
           <div
             aria-hidden="true"
-            className="hidden lg:flex absolute -right-8 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-navy shadow-md"
+            className="hidden lg:flex absolute -right-16 top-1/2 z-10 h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border-2 border-muted-foreground/50 bg-white text-muted-foreground"
           >
             <ArrowRight className="h-5 w-5" />
           </div>
