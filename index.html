@@ -153,10 +153,74 @@
           </article>
           <article id="contact" class="panel contact-panel">
             <p class="eyebrow">Get started</p>
-            <h2>Request program information</h2>
-            <p>Tell us about your player and the type of soccer experience you are looking for. We will help route you to the right program.</p>
-            <a class="btn btn-orange" href="mailto:hello@wearesoccer.com?subject=We%20Are%20Soccer%20Program%20Information" data-track="contact_email">Email the Academy</a>
-            <p class="contact-note">Prefer a custom form? Connect this CTA to your preferred booking or inquiry tool.</p>
+            <h2>Register your player</h2>
+            <p>Tell us about your family and player so we can help place them in the right soccer program.</p>
+
+            <form class="registration-form" action="mailto:hello@wearesoccer.com" method="post" enctype="text/plain">
+              <fieldset>
+                <legend>Parent's Information</legend>
+                <label>
+                  Full Name<span aria-hidden="true">*</span>
+                  <input type="text" name="parent_name" placeholder="Type your full name here" required />
+                </label>
+                <label>
+                  Phone<span aria-hidden="true">*</span>
+                  <input type="tel" name="phone" required />
+                </label>
+                <label>
+                  Email<span aria-hidden="true">*</span>
+                  <input type="email" name="email" required />
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Player's Information</legend>
+                <div class="form-grid">
+                  <label>
+                    Player's Name<span aria-hidden="true">*</span>
+                    <input type="text" name="player_name" placeholder="Type the player's full name" required />
+                  </label>
+                  <label>
+                    Date of Birth<span aria-hidden="true">*</span>
+                    <input type="date" name="date_of_birth" required />
+                  </label>
+                  <label>
+                    Choose Location<span aria-hidden="true">*</span>
+                    <select name="location" required>
+                      <option value="">Please Select</option>
+                      <option>Central Training Field</option>
+                      <option>North Area Program</option>
+                      <option>School or Daycare Program</option>
+                      <option>Not Sure Yet</option>
+                    </select>
+                  </label>
+                  <label>
+                    Select Program<span aria-hidden="true">*</span>
+                    <select name="program" required>
+                      <option value="">Please Select</option>
+                      <option>Little Kickers</option>
+                      <option>Rising Stars</option>
+                      <option>Junior Champions</option>
+                      <option>School or Group Program</option>
+                      <option>Not Sure Yet</option>
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  Message
+                  <textarea name="message" rows="4" placeholder="Type any additional information"></textarea>
+                </label>
+              </fieldset>
+
+              <label class="consent-field">
+                <input type="checkbox" name="communication_consent" value="yes" />
+                <span>I agree to receive communication from We Are Soccer Academy.</span>
+              </label>
+              <p class="form-disclaimer">
+                By checking this box, you agree to receive SMS conversational messages from We Are Soccer Academy. Reply STOP to opt out at any time. Message and data rates may apply.
+              </p>
+              <button class="btn btn-orange" type="submit" data-track="registration_submit">Submit Registration</button>
+            </form>
           </article>
         </div>
       </section>
