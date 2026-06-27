@@ -333,6 +333,40 @@ h3 { font-size: 1.45rem; }
 
 .registration-panel { max-width: 980px; margin: 0 auto; }
 
+.service-locations {
+  max-width: 980px;
+  margin: 28px auto 0;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.service-locations h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+
+.location-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.location-pill-grid span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 2px solid rgba(255, 106, 0, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 106, 0, 0.08);
+  color: var(--navy);
+  font-weight: 950;
+  text-align: center;
+}
+
 .school-card { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; background: #fff; border-radius: 30px; box-shadow: var(--shadow); padding: 28px; }
 .school-card .section-photo { height: 390px; }
 
@@ -381,7 +415,7 @@ details p { margin: 12px 0 0; color: var(--muted); font-weight: 700; }
   .nav-cta { margin-left: auto; }
   .hero, .hero-inner { min-height: auto; }
   .hero-inner, .split, .two-panel, .school-card, .coaching-grid, .cta-inner { grid-template-columns: 1fr; }
-  .program-grid, .trust-grid { grid-template-columns: repeat(2, 1fr); }
+  .program-grid, .trust-grid, .location-pill-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -395,7 +429,7 @@ details p { margin: 12px 0 0; color: var(--muted); font-weight: 700; }
   .section { padding: 58px 0; }
   .hero-inner { padding-top: 44px; padding-bottom: 52px; }
   h1 { font-size: clamp(3.3rem, 16vw, 4.5rem); }
-  .trust-points, .trust-grid, .program-grid, .benefit-grid, .steps, .footer-grid { grid-template-columns: 1fr; }
+  .trust-points, .trust-grid, .program-grid, .benefit-grid, .steps, .footer-grid, .location-pill-grid { grid-template-columns: 1fr; }
   .section-photo, .school-card .section-photo { min-height: 280px; }
   .school-card { padding: 20px; }
 }
