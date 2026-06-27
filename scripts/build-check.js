@@ -8,6 +8,7 @@ const requiredFiles = [
   "index.html",
   "styles.css",
   "soccer-logo.png",
+  "sitemap.xml",
 ];
 
 for (const file of requiredFiles) {

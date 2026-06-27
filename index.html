@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>We Are Soccer Academy | Youth Soccer Programs</title>
+    <title>Youth Soccer Club in Central Florida | We Are Soccer Academy</title>
     <meta
       name="description"
-      content="We Are Soccer Academy offers upbeat youth soccer programs that help kids build skills, confidence, teamwork, and a lasting love for the game."
+      content="We Are Soccer Academy is a youth soccer club serving Central Florida with soccer programs, classes, camps, and training for kids ages 3-12."
     />
-    <meta property="og:title" content="We Are Soccer Academy" />
+    <meta property="og:title" content="Youth Soccer Club in Central Florida | We Are Soccer Academy" />
     <meta
       property="og:description"
-      content="Play. Learn. Grow. Together. Youth soccer programs built around confidence, teamwork, skill development, and fun."
+      content="Join a youth soccer club built around confidence, teamwork, skill development, and fun for kids in Central Florida."
     />
     <meta property="og:image" content="soccer-logo.png" />
     <link rel="icon" href="soccer-logo.png" />
@@ -19,12 +19,32 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SportsActivityLocation",
-        "name": "We Are Soccer Academy",
-        "url": "https://wearesocceracademy.vercel.app/",
-        "logo": "https://wearesocceracademy.vercel.app/soccer-logo.png",
-        "sport": "Soccer",
-        "description": "Youth soccer programs focused on soccer skills, confidence, teamwork, and positive player development."
+        "@graph": [
+          {
+            "@type": "SportsActivityLocation",
+            "@id": "https://wearesocceracademy.vercel.app/#organization",
+            "name": "We Are Soccer Academy",
+            "url": "https://wearesocceracademy.vercel.app/",
+            "logo": "https://wearesocceracademy.vercel.app/soccer-logo.png",
+            "sport": "Soccer",
+            "areaServed": ["Orlando", "Kissimmee", "Ocoee", "St. Cloud", "Harmony", "Poinciana", "Celebration", "Davenport", "Haines City", "Dundee", "Windermere", "Winter Springs", "Winter Garden", "Dr. Phillips"],
+            "description": "Youth soccer club offering soccer classes, camps, and training for kids in Central Florida."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://wearesocceracademy.vercel.app/#website",
+            "name": "We Are Soccer Academy",
+            "url": "https://wearesocceracademy.vercel.app/",
+            "publisher": { "@id": "https://wearesocceracademy.vercel.app/#organization" }
+          },
+          {
+            "@type": "Service",
+            "name": "Youth Soccer Club Programs",
+            "provider": { "@id": "https://wearesocceracademy.vercel.app/#organization" },
+            "serviceType": "Youth soccer club, soccer classes, soccer camps, and soccer training",
+            "areaServed": "Central Florida"
+          }
+        ]
       }
     </script>
   </head>
@@ -50,10 +70,10 @@
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="hero-inner container">
           <div class="hero-copy">
-            <p class="eyebrow">Youth soccer with purpose</p>
-            <h1>Play. Learn. Grow. <span>Together.</span></h1>
+            <p class="eyebrow">Youth soccer club with purpose</p>
+            <h1>Youth Soccer Club for Kids <span>Ready to Play.</span></h1>
             <p class="hero-lede">
-              A positive soccer academy experience where kids build ball skills, confidence, teamwork, and healthy habits through age-appropriate training.
+              A positive youth soccer club where kids build ball skills, confidence, teamwork, and healthy habits through age-appropriate training.
             </p>
             <div class="hero-actions">
               <a class="btn btn-orange" href="#contact" data-track="hero_join_program">Join the Program</a>
@@ -327,20 +347,20 @@
             <p class="eyebrow">Service locations</p>
             <h2 id="service-locations-heading">Youth soccer programs near you</h2>
             <div class="location-pill-grid" aria-label="Service locations">
-              <span>Orlando</span>
-              <span>Kissimmee</span>
-              <span>Ocoee</span>
-              <span>St. Cloud</span>
-              <span>Harmony</span>
-              <span>Poinciana</span>
-              <span>Celebration</span>
-              <span>Davenport</span>
-              <span>Haines City</span>
-              <span>Dundee</span>
-              <span>Windermere</span>
-              <span>Winter Springs</span>
-              <span>Winter Garden</span>
-              <span>Dr. Phillips</span>
+              <a href="/locations/orlando/">Orlando</a>
+              <a href="/locations/kissimmee/">Kissimmee</a>
+              <a href="/locations/ocoee/">Ocoee</a>
+              <a href="/locations/st-cloud/">St. Cloud</a>
+              <a href="/locations/harmony/">Harmony</a>
+              <a href="/locations/poinciana/">Poinciana</a>
+              <a href="/locations/celebration/">Celebration</a>
+              <a href="/locations/davenport/">Davenport</a>
+              <a href="/locations/haines-city/">Haines City</a>
+              <a href="/locations/dundee/">Dundee</a>
+              <a href="/locations/windermere/">Windermere</a>
+              <a href="/locations/winter-springs/">Winter Springs</a>
+              <a href="/locations/winter-garden/">Winter Garden</a>
+              <a href="/locations/dr-phillips/">Dr. Phillips</a>
             </div>
           </div>
         </div>
@@ -357,6 +377,20 @@
         <div>
           <h2>Explore</h2>
           <a href="#programs">Programs</a>
+          <a href="/soccer-program-for-3-year-olds/">Soccer for 3 Year Olds</a>
+          <a href="/soccer-training-for-5-6-year-olds/">Soccer Training Ages 5-6</a>
+          <a href="/soccer-classes-for-10-year-olds/">Soccer Classes Age 10</a>
+          <a href="/soccer-classes-for-11-year-olds/">Soccer Classes Age 11</a>
+        </div>
+        <div>
+          <h2>Locations</h2>
+          <a href="/locations/orlando/">Orlando</a>
+          <a href="/locations/kissimmee/">Kissimmee</a>
+          <a href="/locations/winter-garden/">Winter Garden</a>
+          <a href="/locations/dr-phillips/">Dr. Phillips</a>
+        </div>
+        <div>
+          <h2>About</h2>
           <a href="#approach">Approach</a>
           <a href="#schools">Schools</a>
           <a href="#coaching">Coaching</a>
