@@ -331,6 +331,15 @@ h3 { font-size: 1.45rem; }
   line-height: 1.5;
 }
 
+.form-error {
+  margin: -12px 0 0;
+  color: #ffd4c2 !important;
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+.registration-frame { display: none; }
+
 .registration-panel { max-width: 980px; margin: 0 auto; }
 
 .service-locations {
@@ -379,6 +388,8 @@ h3 { font-size: 1.45rem; }
 .page-hero h1 { max-width: 940px; }
 .page-hero p:not(.eyebrow) { max-width: 760px; color: rgba(255, 255, 255, 0.86); font-size: 1.15rem; font-weight: 800; }
 .page-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+
+.thank-you-hero { min-height: 520px; display: grid; align-items: center; }
 
 .landing-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; }
 .landing-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); }
@@ -473,7 +484,7 @@ details p { margin: 12px 0 0; color: var(--muted); font-weight: 700; }
   .section { padding: 58px 0; }
   .hero-inner { padding-top: 44px; padding-bottom: 52px; }
   h1 { font-size: clamp(3.3rem, 16vw, 4.5rem); }
-  .trust-points, .trust-grid, .program-grid, .benefit-grid, .steps, .footer-grid, .location-pill-grid, .link-grid, .nearby-grid { grid-template-columns: 1fr; }
+  .trust-points, .trust-grid, .program-grid, .benefit-grid, .steps, .footer-grid, .location-pill-grid, .link-grid, .nearby-grid, .form-grid { grid-template-columns: 1fr; }
   .section-photo, .school-card .section-photo { min-height: 280px; }
   .school-card { padding: 20px; }
 }

@@ -276,7 +276,8 @@
             <h2>Register your player</h2>
             <p>Tell us about your family and player so we can help place them in the right soccer program.</p>
 
-            <form class="registration-form" action="https://hook.us1.make.com/lamdyafebrc4m3trwmf2s0hrcl04855y" method="post">
+            <iframe class="registration-frame" name="registration_frame" title="Registration submission" hidden></iframe>
+            <form class="registration-form" action="https://hook.us1.make.com/lamdyafebrc4m3trwmf2s0hrcl04855y" method="post" target="registration_frame" novalidate>
               <fieldset>
                 <legend>Parent's Information</legend>
                 <label>
@@ -308,20 +309,27 @@
                     Choose Location<span aria-hidden="true">*</span>
                     <select name="location" required>
                       <option value="">Please Select</option>
-                      <option>Central Training Field</option>
-                      <option>North Area Program</option>
-                      <option>School or Daycare Program</option>
-                      <option>Not Sure Yet</option>
+                      <option>Orlando Metro West</option>
+                      <option>East Orlando</option>
+                      <option>Kissimmee the LOOP</option>
+                      <option>St. Cloud</option>
+                      <option>Harmony</option>
+                      <option>Poinciana Deerwood Park</option>
+                      <option>Poinciana Chestnut</option>
+                      <option>Celebration</option>
                     </select>
                   </label>
                   <label>
                     Select Program<span aria-hidden="true">*</span>
                     <select name="program" required>
                       <option value="">Please Select</option>
-                      <option>Little Kickers</option>
-                      <option>Rising Stars</option>
-                      <option>Junior Champions</option>
-                      <option>School or Group Program</option>
+                      <option>U6 (Ages 3-5)</option>
+                      <option>U9 (Ages 6-8)</option>
+                      <option>U12 (Ages 9-11)</option>
+                      <option>U13/U14 (Ages 12-13)</option>
+                      <option>U15/U16 (Ages 14-15)</option>
+                      <option>U17/U18 (Ages 16-17)</option>
+                      <option>School or Private Groups</option>
                       <option>Not Sure Yet</option>
                     </select>
                   </label>
@@ -333,9 +341,10 @@
               </fieldset>
 
               <label class="consent-field">
-                <input type="checkbox" name="communication_consent" value="yes" />
+                <input type="checkbox" name="communication_consent" value="yes" required aria-describedby="consent-error" />
                 <span>I agree to receive communication from We Are Soccer Academy.</span>
               </label>
+              <p class="form-error" id="consent-error" role="alert" hidden>Please check the communication and SMS consent box before submitting registration.</p>
               <p class="form-disclaimer">
                 By checking this box, you agree to receive SMS conversational messages from We Are Soccer Academy. Reply STOP to opt out at any time. Message and data rates may apply.
               </p>
@@ -406,5 +415,36 @@
         <span>© 2024 We Are Soccer Academy. All rights reserved.</span>
       </div>
     </footer>
+    <script>
+      const registrationForm = document.querySelector('.registration-form');
+      const registrationFrame = document.querySelector('.registration-frame');
+      const consentInput = registrationForm?.querySelector('input[name="communication_consent"]');
+      const consentError = document.getElementById('consent-error');
+      let registrationSubmitted = false;
+
+      registrationForm?.addEventListener('submit', (event) => {
+        if (!registrationForm.checkValidity()) {
+          event.preventDefault();
+          registrationForm.reportValidity();
+        }
+
+        if (consentInput && !consentInput.checked) {
+          event.preventDefault();
+          consentError.hidden = false;
+          consentInput.focus();
+          return;
+        }
+
+        if (!event.defaultPrevented) registrationSubmitted = true;
+      });
+
+      consentInput?.addEventListener('change', () => {
+        if (consentInput.checked) consentError.hidden = true;
+      });
+
+      registrationFrame?.addEventListener('load', () => {
+        if (registrationSubmitted) window.location.href = '/thank-you/';
+      });
+    </script>
   </body>
 </html>
